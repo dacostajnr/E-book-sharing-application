@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style type="text/css">
+    	.moo{    		
+    		border: 0.5px solid #c4c7ca;
+    		border-radius: 20px;
+    		margin-top: 20px;    	
+			-webkit-box-shadow:rgba(90,190,89,0.4)5px 5px 15px 2px;
+    	}
+    	.download-button{
+    		margin-bottom: 10px;
+        margin-top: 10px;        
+    	}
+      .book-heading{
+        color: #2a6cc1;
+      }
+      #search_text{
+        border-radius: 20px;
+      }      
+      input::placeholder{
+        color:red;
+        opacity: 1;
+      }
+    </style>
+
+</head>
+<body> 
+<!-- NAVIGATION -->
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">
+      <span class="fa fa-flash text-success"></span>   
+      ElectricalHub
+    </a>
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">     
+        <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Year 1
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Semester 1</a>
+        <a class="dropdown-item" href="#">Semester 2</a>
+        
+      </div>
+    </li>
+            <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Year 2
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Semester 1</a>
+        <a class="dropdown-item" href="#">Semester 2</a>
+      </div>
+    </li>
+            <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Year 3
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Semester 1</a>
+        <a class="dropdown-item" href="#">Semester 2</a>
+      </div>
+    </li>
+          <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Year 4
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Semester 1</a>
+        <a class="dropdown-item" href="#">Semester 2</a>
+      </div>
+    </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li> 
+    </ul>
+  </div> 
+</nav>
+<header class="bg-success text-white">
+	<div class="container-fluid">
+		<div class="row">			
+			<div class="col-md-6"><h2><i class="fa fa-home"></i> Download free Books</h2></div>			
+		</div>		
+	</div>	
+</header>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <!-- ========Search  Form =============-->
+      <form action=".">
+        <div class="row">
+          <div class="col">
+            <!-- input -->
+              <div class="form-group">
+                <input  class="form-control text-success" id="search_text" placeholder="Search ...">
+              </div>              
+          </div>
+          <div class="col" style="margin-left: 0px !important;">
+            <!-- submit button -->
+    <a href="#" class="btn btn-success" ><span class="fa fa-search"></span></a>
+          </div>          
+        </div>              
+      </form>      
+    </div>    
+  </div>
+  
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#myModal"><b>Upload course material</b> <span class="fa fa-upload"></span> </a>
+      
+    </div>
+    
+  </div>
+</div>
+<!--======================== Modal====================================== -->
+<div class="modal fade" id="myModal" data-backdrop="static">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Share Course Material</h5>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">        
+          <form action=".">
+            <div class="form-group">
+              <label for="email"><b>Name of Course</b></label>
+              <input type="email" class="form-control" id="email">
+            </div>
+            <div class="form-group">
+              <label for="email"><b>Year taken</b></label>
+              <!-- <input type="email" class="form-control" id="email"> -->
+              <select class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="email"><b>Semester Taken</b></label>
+              <!-- <input type="email" class="form-control" id="email"> -->
+              <select class="form-control">
+                <option>1</option>
+                <option>2</option>
+    
+              </select>
+            </div>           
+            <div class="form-group">
+              <input type="FILE" name="file" id="file" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-warning" onclick=trigger();>Submit</button>
+          </form>
+
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <h6 class="text-warning">Coded with <span class="fa fa-heart text-danger"></span> by dacosta</h6>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--======================== Modal====================================== -->S
+<div class="container-fluid">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-12 moo">
+						<div class="row">
+							<!-- heading -->
+							<div class="col-md-12">
+								<h2 class="book-heading">Semiconductor Devices</h2>						
+							</div>
+							<div class="col-md-12">                
+								<div class="row">
+								<div class="col-md-12">
+                  <h6 class="pull-left text-secondary">Date-updated:</h6>
+                  <span class="badge badge-success pull-right">01,may,2018</span>                                            
+                </div>	
+                <div class="col-md-12">
+                  <a href="#"><span class="badge badge-dark pull-left">2nd year,2nd Semester</span></a>                      
+                </div>
+								</div>										                                                                  																			
+							</div>
+							<div class="col-md-5">
+						<button type="button" class="btn btn-outline-primary download-button">DOWNLOAD <i class="fa fa-download"></i>
+						</button>								
+							</div>							
+						</div>				
+					</div>										
+          <div class="col-md-12 moo">
+            <div class="row">
+              <!-- heading -->
+              <div class="col-md-12">
+                <h2 class="book-heading">Asynchronous Machines</h2>            
+              </div>
+              <div class="col-md-12">                
+                <div class="row">
+                <div class="col-md-12">
+                  <h6 class="pull-left text-secondary">Date-updated:</h6>
+                  <span class="badge badge-success pull-right">01,may,2018</span>                                            
+                </div>  
+                <div class="col-md-12">
+                  <a href="#"><span class="badge badge-dark pull-left">2nd year,2nd Semester</span></a>                      
+                </div>
+                </div>                                                                                                                            
+              </div>
+              <div class="col-md-5">
+            <button type="button" class="btn btn-outline-primary download-button">DOWNLOAD <i class="fa fa-download"></i>
+            </button>               
+              </div>              
+            </div>        
+          </div>                    
+          <div class="col-md-12 moo">
+            <div class="row">
+              <!-- heading -->
+              <div class="col-md-12">
+                <h2 class="book-heading">Semiconductor Devices</h2>            
+              </div>
+              <div class="col-md-12">                
+                <div class="row">
+                <div class="col-md-12">
+                  <h6 class="pull-left text-secondary">Date-updated:</h6>
+                  <span class="badge badge-success pull-right">01,may,2018</span>                                            
+                </div>  
+                <div class="col-md-12">
+                  <a href="#"><span class="badge badge-dark pull-left">2nd year,2nd Semester</span></a>                   
+                </div>
+                </div>                                                                                                                            
+              </div>
+              <div class="col-md-5">
+            <button type="button" class="btn btn-outline-primary download-button">DOWNLOAD <i class="fa fa-download"></i>
+            </button>               
+              </div>              
+            </div>        
+          </div>                    
+          <div class="col-md-12 moo">
+            <div class="row">
+              <!-- heading -->
+              <div class="col-md-12">
+                <h2 class="book-heading">Semiconductor Devices</h2>            
+              </div>
+              <div class="col-md-12">                
+                <div class="row">
+                <div class="col-md-12">
+                  <h6 class="pull-left text-secondary">Date-updated:</h6>
+                  <span class="badge badge-success pull-right">01,may,2018</span>                                            
+                </div>  
+                <div class="col-md-12">
+                  <a href="#"><span class="badge badge-dark pull-left">2nd year,2nd Semester</span></a>                      
+                </div>
+                </div>                                                                                                                            
+              </div>
+              <div class="col-md-5">
+            <button type="button" class="btn btn-outline-primary download-button">DOWNLOAD <i class="fa fa-download"></i>
+            </button>               
+              </div>              
+            </div>        
+          </div>                                                  
+				</div>				
+			</div>				
+			</div>
+		</div>		
+	</div>
+</div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,294 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static "book/css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "book/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "book/css/style.css" %}">
+    <style type="text/css">
+    	.moo{    		
+    		border: 0.5px solid #c4c7ca;
+    		border-radius: 20px;
+    		margin-top: 20px;    	
+			-webkit-box-shadow:rgba(90,190,89,0.4)5px 5px 15px 2px;
+    	}
+    	.download-button{
+    		margin-bottom: 10px;
+        margin-top: 10px;        
+    	}
+      .book-heading{
+        color: #2a6cc1;
+      }
+      #search_text{
+        border-radius: 20px;
+      }      
+      input::placeholder{
+        color:red;
+        opacity: 1;
+      }
+/*      body{
+        background-color: #eee;
+      }*/
+    </style>
+
+</head>
+<body> 
+<!-- NAVIGATION -->
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand text-warning" href="{% url "book:home" %}">
+      <span class="fa fa-flash text-success"></span>   
+      ElectricalHub
+    </a>
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">     
+        <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Year 1
+      </a>
+      <div class="dropdown-menu">
+        {% for i in year1_sems %}
+        <a href="{% url "book:semester_detail" i.year.id i.id %}" class="dropdown-item">{{i.name}}</a>
+        {% endfor %}
+        
+      </div>
+    </li>
+            <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Year 2
+      </a>
+      <div class="dropdown-menu">
+        {% for i in year2_sems %}
+        <a href="{% url "book:semester_detail" i.year.id i.id %}" class="dropdown-item">{{i.name}}</a>
+        {% endfor %}
+      </div>
+    </li>
+            <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Year 3
+      </a>
+      <div class="dropdown-menu">
+        {% for i in year3_sems %}
+        <a href="{% url "book:semester_detail" i.year.id i.id %}" class="dropdown-item">{{i.name}}</a>
+        {% endfor %}
+      </div>
+    </li>
+          <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Year 4
+      </a>
+      <div class="dropdown-menu">
+        {% for i in year4_sems %}
+        <a href="{% url "book:semester_detail" i.year.id i.id %}" class="dropdown-item">{{i.name}}</a>
+        {% endfor %}
+      </div>
+    </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url "book:others" %}">Other Books</a>
+      </li> 
+      <li class="nav-item">
+        <a class="nav-link" href="{% url "book:about" %}">About</a>
+      </li> 
+    </ul>
+  </div> 
+</nav>
+<header class="bg-success text-white">
+	<div class="container-fluid">
+		<div class="row">			
+			<div class="col-md-6"><h2><i class="fa fa-home text-warning"></i> Download free Books</h2></div>			
+		</div>		
+	</div>	
+</header>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <!-- ========Search  Form =============-->
+      <form action="{% url "book:search" %}" method="get">
+        <div class="row">
+          <div class="col">
+            <!-- input -->
+              <div class="form-group">
+                <input  class="form-control text-success" id="search_text" placeholder="Search ..." type="text" name="q" value="{{request.GET.q}}">
+              </div>              
+          </div>
+          <div class="col" style="margin-left: 0px !important;">
+            <!-- submit button -->    
+      <button type="submit" class="btn btn-success"><span class="fa fa-search"></span></button>
+          </div>          
+        </div>              
+      </form>      
+    </div>    
+  </div>  
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <a href="#" class="btn btn-warning btn-block" data-toggle="modal" data-target="#myModal"><b>Upload course material</b> <span class="fa fa-upload"></span> </a>
+      
+    </div>
+        <div class="col-md-3">
+      <a href="#" class="btn btn-success btn-block" data-toggle="modal" data-target="#myyModal"><b>Upload other books</b> <span class="fa fa-upload"></span> </a>      
+    </div>
+    
+  </div>
+</div>
+<!--======================== Modal====================================== -->
+
+<div class="modal fade" id="myModal" data-backdrop="static">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Share Course Material</h5>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+
+
+
+
+
+
+      <!-- Modal body -->
+      <div class="modal-body">        
+          <form action="{% url "book:upload" %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+              <label><b>Name of Course</b></label>
+              <input type="text" class="form-control text-warning" id="course_name" name="name" required="true">
+            </div>
+            <div class="form-group">
+              <label><b>Year taken</b></label>            
+              <select class="form-control text-warning" name="year" placeholder="Select year">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="email"><b>Semester Taken</b></label>              
+              <select class="form-control text-warning" name="sem">
+                <option>1</option>
+                <option>2</option>
+    
+              </select>
+            </div>           
+            <div class="form-group">
+              <input type="FILE" required="true" name="file" id="file" class="form-control text-warning">
+            </div>            
+            <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-warning" >Submit</button>
+          </form>
+
+
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer bg-warning">
+        <h6>Coded with <span class="fa fa-heart text-danger"></span> by <b><em>dacosta</em></b></h6>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myyModal" data-backdrop="static">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-success">
+        <h5 class="modal-title text-white">Share Other Materials</h5>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">        
+          <form action="{% url "book:upload_other" %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+              <label class="text-dark"><b>Title of Book</b></label>
+              <input type="text" class="form-control text-success" id="name" name="name" required="true">
+            </div>           
+            <div class="form-group">
+              <input type="FILE" required="true" name="file" id="file" class="form-control text-success">
+            </div>            
+            <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success" >Submit</button>
+          </form>
+
+
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer bg-success">
+        <h6>Coded with <span class="fa fa-heart text-danger"></span> by <b><em>dacosta</em></b></h6>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--======================== Modal====================================== -->
+<div class="container-fluid">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+        {% for i in books %}	 
+          <div class="col-md-12 moo">
+            <div class="row">
+              <!-- heading -->
+              <div class="col-md-12">
+                <h2 class="book-heading">{{i.name}}</h2>           
+              </div>
+              <div class="col-md-12">                
+                <div class="row">
+                <div class="col-md-12">
+                  <h6 class="pull-left text-secondary">Date-updated:</h6>
+                  <span class="badge badge-success pull-right">{{i.date_uploaded}}</span>                                            
+                </div>  
+                <div class="col-md-12">
+                  <a href="{% url "book:semester_detail" i.semester.year.id i.semester.id %}"><span class="badge badge-dark pull-left">Year {{i.semester.year.name}},{{i.semester.name}}</span></a>                      
+                </div>
+                </div>                                                                                                                            
+              </div>
+              <div class="col-md-5">
+            <a href="{{i.file.url}}" class="btn btn-outline-primary download-button">Download <span class="fa fa-download"></span></a>
+          
+              </div>              
+            </div>        
+          </div>  
+
+        {% endfor %}
+
+				</div>				
+			</div>				
+			</div>
+		</div>		
+	</div>
+  <footer id="main-footer" class="bg-dark text-light" style="padding:15px;margin-top:15px;">
+       <div class="container">
+           <div class="row">
+               <div class="col">
+                   <p class="text-center"><h5 class=" text-warning"><b>Coded with <span class="fa fa-heart text-danger"></span> by <em class="text-success">dacosta</em></b></h5></p>
+               </div>
+           </div>
+       </div>
+   </footer>
+
+    <script src="{% static "book/js/jquery.min.js" %}"></script>
+    <script src="{% static "book/js/popper.js" %}"></script>
+    <script src="{% static "book/js/bootstrap.min.js" %}"></script>
+
+</body>
+</html>
+
